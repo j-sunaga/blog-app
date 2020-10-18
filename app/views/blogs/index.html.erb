@@ -1,6 +1,22 @@
 <p id="notice"><%= notice %></p>
+<% if current_user %>
+<p>login user name : <%= current_user.name %></p>
+<p>login user email : <%= current_user.email %></p>
+<% end %>
 
 <h1>Blogs</h1>
+
+<%= search_form_for @q do |f| %>
+
+# Search if the name field contains...
+<%= f.label :title_or_content_cont %>
+<%= f.search_field :title_or_content_cont %>
+
+<%= f.submit %>
+<% end %>
+
+
+<p><%= link_to "Logout", destroy_user_session_path, method: :delete %></p>
 
 <table>
   <thead>
@@ -13,13 +29,13 @@
 
   <tbody>
     <% @blogs.each do |blog| %>
-      <tr>
-        <td><%= blog.title %></td>
-        <td><%= blog.content %></td>
-        <td><%= link_to 'Show', blog %></td>
-        <td><%= link_to 'Edit', edit_blog_path(blog) %></td>
-        <td><%= link_to 'Destroy', blog, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+    <tr>
+      <td><%= blog.title %></td>
+      <td><%= blog.content %></td>
+      <td><%= link_to 'Show', blog %></td>
+      <td><%= link_to 'Edit', edit_blog_path(blog) %></td>
+      <td><%= link_to 'Destroy', blog, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
     <% end %>
   </tbody>
 </table>
